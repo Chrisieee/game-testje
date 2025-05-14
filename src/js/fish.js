@@ -3,7 +3,7 @@ import { Resources } from './resources.js'
 
 export class Fish extends Actor {
     constructor() {
-        super() //Just do it! 
+        super({width: Resources.Fish.width, height: Resources.Fish.height}) //Just do it! 
 
         this.graphics.use(Resources.Fish.toSprite())
         this.pos = new Vector(Math.random() * 1920, Math.random() * 1080)
@@ -12,6 +12,11 @@ export class Fish extends Actor {
         this.scale = new Vector(sc, sc)
         this.events.on("exitviewport", (e) => this.fishLeft(e))
 
+    }
+
+    onPostKill(e) {
+        const fish = new Fish()
+        this.scene.add(fish)
     }
 
     fishLeft(e) {
